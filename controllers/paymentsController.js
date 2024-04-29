@@ -30,4 +30,16 @@ async function getPayments( request, response){
     }
 }
 
-export { createPayments, getPayments}
+async function getPaymentsById( request, response){
+    try {
+        const id = request.params.id;
+        const payments = await Payments.findById(id);
+        response.status(200).json({message: 'Ok', data: payments});
+
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({message: error, data: []});
+    }
+}
+
+export { createPayments, getPayments, getPaymentsById}

@@ -31,4 +31,16 @@ async function getProducts( request, response){
     }
 }
 
-export { createProduct, getProducts}
+async function getProductsById( request, response){
+    try {
+        const id = request.params.id;
+        const products = await Product.findById(id);
+        response.status(200).json({message: 'Ok', data: products});
+
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({message: error, data: []});
+    }
+}
+
+export { createProduct, getProducts, getProductsById}

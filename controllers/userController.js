@@ -13,7 +13,6 @@ async function createUser(request, response){
             await newUser.save();
             response.status(200).json({ newUser});
         }
-
         
     } catch (error) {
         console.error(error);
@@ -23,9 +22,8 @@ async function createUser(request, response){
 
 async function getUser( request, response){
     try {
-        const Users = await User.find()
-        console.log(Users)
-        response.status(200).json({ message: 'Ok', data: Users});
+        const users = await User.find()
+        response.status(200).json({ message: 'Ok', data: users});
 
     } catch (error) {
         console.error(error);
@@ -33,4 +31,16 @@ async function getUser( request, response){
     }
 }
 
-export { createUser, getUser}
+async function getUserById( request, response){
+    try {
+        const id = request.params.id;
+        const users = await User.findById(id);
+        response.status(200).json({message: 'Ok', data: users});
+
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({message: error, data: []});
+    }
+}
+
+export { createUser, getUser, getUserById}

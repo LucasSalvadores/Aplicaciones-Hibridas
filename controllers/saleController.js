@@ -31,4 +31,16 @@ async function getSale( request, response){
     }
 }
 
-export { createSale, getSale}
+async function getSaleById( request, response){
+    try {
+        const id = request.params.id;
+        const sale = await Sale.findById(id);
+        response.status(200).json({message: 'Ok', data: sale});
+
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({message: error, data: []});
+    }
+}
+
+export { createSale, getSale, getSaleById}
